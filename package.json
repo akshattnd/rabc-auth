@@ -10,6 +10,7 @@
     "format": "biome format --write"
   },
   "dependencies": {
+    "mongoose": "^9.10.3",
     "next": "16.3.8",
     "react": "19.2.8",
     "react-dom": "19.2.8"
@@ -17,7 +18,7 @@
   "devDependencies": {
     "@biomejs/biome": "2.4.2",
     "@tailwindcss/postcss": "^4",
-    "@types/node": "^20",
+    "@types/node": "^26.6.4",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "babel-plugin-react-compiler": "1.0.0",
@@ -30,6 +31,9 @@
     "unrs-resolver"
   ],
   "trustedDependencies": [
+    "@prisma/client",
+    "@prisma/engines",
+    "prisma",
     "sharp",
     "unrs-resolver"
   ]

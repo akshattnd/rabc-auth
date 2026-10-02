@@ -1,0 +1,14 @@
+services:
+  mongodb:
+    image: mongo:8
+    container_name: rbac-mongodb
+    restart: unless-stopped
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_DATABASE: rbac_auth
+    volumes:
+      - mongodb_data:/data/db
+
+volumes:
+  mongodb_data:
