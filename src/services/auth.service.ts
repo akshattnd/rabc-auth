@@ -5,6 +5,7 @@ import { UserModel } from "@/models/user.model";
 import { RoleModel } from "@/models/role.model";
 import { ROLES } from "@/constants/roles";
 import type { LoginInput, RegisterInput } from "@/validations/auth.validation";
+import { generateTokens } from "@/lib/jwt";
 export async function registerUser(input: RegisterInput) {
     await connectDB();
 
@@ -51,7 +52,8 @@ export async function registerUser(input: RegisterInput) {
 export async function loginUser(input: LoginInput) {
     // conncet db
     // get user and role
-    // compare passowrd 
+    // compare passowrd
+    // generate tokens 
     // return user
     await connectDB()
 
@@ -64,11 +66,14 @@ export async function loginUser(input: LoginInput) {
         throw new HttpError(401, 'Invalid email or password');
     }
     const role = await RoleModel.findById(user.roleId);
+    const { accessToken, refreshToken } = await generateTokens({ id: user._id.toString(), role: role.name })
     return {
-        id: user._id.toString(),
-        email: user.email,
-        name: user.name,
-        role: role.name,
+        user: {
+            id: user._id.toString(),
+            email: user.email,
+            name: user.name,
+            role: role.name,
+        },
+        accessToken, refreshToken
     }
-
 }
